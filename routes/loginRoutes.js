@@ -15,7 +15,7 @@ router.get('/form2', (req, res) => {
 router.post('/',
     passport.authenticate('local', {
         successRedirect: '/addsales',
-        failureRedirect: '/register'
+        failureRedirect: '/'
     })
 );
 

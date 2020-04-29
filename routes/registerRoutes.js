@@ -12,6 +12,10 @@ router.get('/', (req, res) => {
 router.get('/customer', (req, res) => {
     res.sendFile(path.join(__dirname, '../views', 'customer.html'))
 })
+router.get('/payment', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views', 'payment.html'))
+})
+
 /* Create a post router to register and save admin details in the database then redirecting to the login form 
 otherwise return an error message "unable to save to database" */
 router.post("/register", async (req, res) => {
@@ -88,7 +92,7 @@ router.get('/findcustomerr', async (req, res) => {
     try {
         let customer = await Customer.find()
         if (req.query.fullName) {
-            customer = await Customer.find({ fullName: req.params.fullName })
+            customer = await Customer.find(req.params.fullName )
         }
         res.render('one', { x: customer })
     } catch (error) {
@@ -97,7 +101,9 @@ router.get('/findcustomerr', async (req, res) => {
         
     }
 })
-
+/*Route to get a single customer through his or her id from the database and with some calculations 
+which claculates the balance a customer has to pay after paying the downpayment and anyother amount
+towards his loan and thereafter displays a one.pug file which shows one particula selected customer*/
 router.get('/findcustomer/:id', async (req, res) => {
     try {
         let Total
@@ -113,9 +119,10 @@ router.get('/findcustomer/:id', async (req, res) => {
         console.log(error);
     }
 })
+/*Creating a route which handles the calculations when a customer makes further payments towards
+his loan in addition to his downpayment */
 router.post('/installment', async (req, res) => {
     try {
-
         let installmentAmount = req.body.installmentAmount
         let downPayment = req.body.downPayment
         let loanPaid = parseInt(downPayment) + parseInt(installmentAmount);
@@ -123,7 +130,8 @@ router.post('/installment', async (req, res) => {
             { _id: req.body.customerID },
             { $set: { downPayment: loanPaid } }
         );
-        res.json(updateLoan)
+        // res.json(updateLoan)
+        res.redirect('/payment')
 
     } catch (error) {
         console.log(error);

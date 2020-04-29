@@ -1,7 +1,7 @@
 //Defining  a validatingg method
 function validatingg() {
     var userid = document.customer.fullName
-    
+
     /* Defining a method called allLetter with parameter(fullName) and declaring a variable called leters which sets
     a condition of values entered to be alphabets ony and not numbers*/
     function allLetter(fullName) {
@@ -104,27 +104,25 @@ function validatingg() {
         }
     }
 
-    /* Defining a method called alphanuericContact with parameter(contact) and declaring a variable called leters which sets
-    a condition of values entered not to be numbers*/
-    function allLetterContact(contact) {
-        var letters = /^[0-9a-zA-Z]+$/;
-        if (contact.value.match(letters)) {
-            contact.style.border = '2px solid green'
-            return true;
-        }
-        else {
+    /*Defining a method called  allLetterContact with parameters (mx,my) and setting a condition which which checks
+    the length if the customer's telephone is empty or is between a given range and if the condition is met return
+    true otherwise false*/
+    function allLetterContact(min, max) {
+        if (contact.value.length == 0 || contact.value.length < min || contact.value.length > max) {
             // alert('Phone number should not be less than 10 characters and not numbers');
-            document.getElementById('p2').innerText = "Phone number should not be less than 10 characters and not numbers";
+            document.getElementById('p2').innerText = "Customer's Phone number should not be less than 10 characters and not numbers";
             contact.style.border = '2px solid red'
             contact.focus();
             return false;
         }
+        else {
+            contact.style.border = '2px solid green'
+            return true;
+
+        }
     }
-
-    
-
     /*Defining a method called uid with parameters (mx,my) and setting a condition which which checks
-     he length if the customer nin is empty or is between a given range and if the condition is met return 
+     the length if the customer's nin is empty or is between a given range and if the condition is met return 
      true otherwise false*/
     function uid(min, max) {
         if (nin.value.length == 0 || nin.value.length < min || nin.value.length > max) {
@@ -137,24 +135,38 @@ function validatingg() {
             return true
         }
     }
+    /*Defining a method called refreesContact with parameters (mx,my) and setting a condition which which checks
+     the length, if the refrees's contact is empty or is between a given range and if the condition is met return 
+     true otherwise false*/
+    function refreesContact(min, max) {
+        if (refNumber.value.length == 0 || refNumber.value.length < min || refNumber.value.length > max) {
+            // alert('Phone number should not be less than 10 characters and not numbers');
+            document.getElementById('p9').innerText = "Refree's Contact should not be less than 10 characters and not numbers";
+            refNumber.style.border = '2px solid red'
+            return false
+        } else {
+            refNumber.style.border = '2px solid green'
+            return true
+        }
+    }
 
 
     if (allLetter(userid)) {
 
     }
     if (allLetterRefName(refreesName)) {
-    
+
     }
     if (allLetterLc1(lc1)) {
-    
+
     }
     if (allLetterLc3(lc3)) {
-    
+
     }
     if (allLetterStageLeader(stageleader)) {
     }
 
-    if (allLetterContact(contact)) {
+    if (allLetterContact(10, 20)) {
 
     }
     if (alphanumericDownPayment(downPayment)) {
@@ -162,6 +174,9 @@ function validatingg() {
     }
 
     if (uid(5, 35)) {
+    }
+    if (refreesContact(10, 20)) {
+
     }
 
 
